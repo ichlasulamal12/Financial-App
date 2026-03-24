@@ -38,25 +38,30 @@ Repository ini sudah disiapkan workflow deploy otomatis di:
 - `.github/workflows/deploy-gh-pages.yml`
 
 ### Langkah deploy
-1. Buat repository GitHub bernama `Financial-App` (atau gunakan yang sudah ada).
-2. Tambahkan remote dari project ini:
+1. Pastikan branch default repository Anda adalah `main` atau `master`.
+2. Buka **Settings → Pages** lalu pilih source **GitHub Actions**.
+3. Commit/push file workflow ke branch default.
+4. Buka tab **Actions** lalu jalankan workflow (Run workflow) atau push commit baru.
+
+### Jika muncul error `Get Pages site failed` / `HttpError: Not Found`
+- Biasanya karena Pages belum diaktifkan pada repository.
+- Solusi:
+  1. Buka **Settings → Pages**
+  2. Pilih source **GitHub Actions**
+  3. Simpan, lalu jalankan workflow lagi.
+- Workflow ini sudah menyertakan `enablement: true` pada `actions/configure-pages`, tapi pengaturan repo tetap harus dapat diakses oleh token workflow.
+
+### Jika muncul warning Node.js 20 deprecated
+- Workflow ini sudah mengaktifkan `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true` agar action JavaScript berjalan di Node.js 24.
+
+## Menarik Kode ke Repository `Financial-App`
+Jika remote belum diset:
 
 ```bash
 git remote add origin https://github.com/<username>/Financial-App.git
 ```
 
-3. Push branch ke GitHub:
-
-```bash
-git push -u origin work
-```
-
-4. Di GitHub, buat Pull Request dari `work` ke `main`, lalu merge.
-5. Buka **Settings → Pages** dan pastikan source menggunakan **GitHub Actions**.
-6. Tunggu workflow selesai, lalu aplikasi aktif di URL GitHub Pages repository Anda.
-
-## Menarik Kode ke Repository `Financial-App`
-Jika remote sudah tersambung, jalankan:
+Push branch kerja:
 
 ```bash
 git push -u origin work
