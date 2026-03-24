@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Financial App - Dashboard Keuangan</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>Financial App</h1>
+      <p>Catat income, expense, aset, dan liabilitas dengan dashboard yang mudah dipahami.</p>
+    </header>
+
+    <main class="container">
+      <section class="card form-card">
+        <h2 id="form-title">Tambah Data</h2>
+        <form id="entry-form">
+          <input type="hidden" id="entry-id" />
+
+          <label>
+            Tipe
+            <select id="type" required>
+              <option value="income">Income</option>
+              <option value="expense">Expense</option>
+              <option value="asset">Aset</option>
+              <option value="liability">Liabilitas</option>
+            </select>
+          </label>
+
+          <label>
+            Nama
+            <input id="name" type="text" placeholder="Contoh: Gaji, Sewa, Motor" required />
+          </label>
+
+          <label>
+            Kategori
+            <input id="category" type="text" placeholder="Contoh: Gaji, Transportasi" required />
+          </label>
+
+          <label>
+            Catatan (opsional)
+            <input id="note" type="text" placeholder="Contoh: Cicilan bulan Maret" />
+          </label>
+
+          <label>
+            Jumlah (IDR)
+            <input id="amount" type="number" min="0" step="1000" required />
+          </label>
+
+          <label>
+            Tanggal
+            <input id="date" type="date" required />
+          </label>
+
+          <div class="form-actions">
+            <button id="save-btn" type="submit">Simpan</button>
+            <button id="cancel-edit-btn" class="secondary" type="button" hidden>Batal Edit</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card dashboard-card">
+        <h2>Dashboard</h2>
+        <div class="stats-grid">
+          <article>
+            <h3>Total Income</h3>
+            <p id="total-income">Rp 0</p>
+          </article>
+          <article>
+            <h3>Total Expense</h3>
+            <p id="total-expense">Rp 0</p>
+          </article>
+          <article>
+            <h3>Total Aset</h3>
+            <p id="total-asset">Rp 0</p>
+          </article>
+          <article>
+            <h3>Total Liabilitas</h3>
+            <p id="total-liability">Rp 0</p>
+          </article>
+          <article class="highlight">
+            <h3>Net Worth</h3>
+            <p id="net-worth">Rp 0</p>
+          </article>
+          <article class="highlight">
+            <h3>Cashflow</h3>
+            <p id="cashflow">Rp 0</p>
+          </article>
+        </div>
+
+        <h3 class="subheading">Ringkasan Kategori (Income/Expense)</h3>
+        <ul id="category-summary" class="summary-list"></ul>
+      </section>
+
+      <section class="card list-card">
+        <div class="list-header">
+          <h2>Riwayat Pencatatan</h2>
+          <div class="toolbar">
+            <button id="demo-btn" class="secondary" type="button">Isi Contoh</button>
+            <button id="export-btn" class="secondary" type="button">Export JSON</button>
+            <label class="import-btn" for="import-input">Import JSON</label>
+            <input id="import-input" type="file" accept="application/json" hidden />
+            <button id="clear-btn" class="danger" type="button">Hapus Semua</button>
+          </div>
+        </div>
+
+        <div class="filters">
+          <label>
+            Filter tipe
+            <select id="filter-type">
+              <option value="all">Semua</option>
+              <option value="income">Income</option>
+              <option value="expense">Expense</option>
+              <option value="asset">Aset</option>
+              <option value="liability">Liabilitas</option>
+            </select>
+          </label>
+          <label>
+            Filter bulan
+            <input id="filter-month" type="month" />
+          </label>
+          <label>
+            Cari
+            <input id="search-input" type="search" placeholder="Cari nama/kategori/catatan" />
+          </label>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Tanggal</th>
+                <th>Tipe</th>
+                <th>Nama</th>
+                <th>Kategori</th>
+                <th>Catatan</th>
+                <th>Jumlah</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="entry-table"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
